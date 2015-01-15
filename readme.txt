@@ -3,7 +3,7 @@ Plugin Name: Create User With Password Multisite
 Contributors: mooveagency, jakubmoove
 Stable tag: trunk
 Plugin URI: 
-Description: Adds functionality to register user with password on WP multisite instalation.
+Description: Adds functionality to register user with password on WP multisite installation.
 Version: 1.0.0.
 Tags: multisite, user registration, password
 Tested up to: 4.1.0
@@ -13,11 +13,11 @@ Author URI:
 License: GPLv2
 Text Domain: create-user-with-password-multisite
 
-With this plugin you will be able to register users in WP Multisite instalation with password.
+With this plugin you will be able to register users in WP Multisite installation with password.
 
 == Description ==
 
-With this plugin you will be able to register users in WP Multisite instalation with password.
+With this plugin you will be able to register users in WP Multisite installation with password.
 
 == Installation ==
 
@@ -36,6 +36,3 @@ Installation is quite simple.
 
 = 1.0.0. =
 * Initial release of the plugin.
-
-
-`<?php code(); // goes in backticks ?>`
