@@ -15,16 +15,16 @@ class Create_User_With_Password {
         // add script
         add_action('admin_print_scripts-user-new.php', array($this, 'cuwp_script'));
 
+        // add css
+        wp_enqueue_style('cuwp-style', plugins_url('create-user-with-password-multisite/css/style.css'));
+        
         // listen for REQUEST
         add_action('init', array($this, 'cuwp_listen'), 3);
 
+   
         // remove filter that updates welcome email
         remove_filter('site_option_welcome_user_email', 'welcome_user_msg_filter');
 
-        $text = 'Dear User,
-                Thank you for the registration. You will recieve login details shortly.
-                --The Team @ SITE_NAME';
-        update_site_option('welcome_user_email', $text);
     }
 
     /**
@@ -43,12 +43,12 @@ class Create_User_With_Password {
             <tbody>
             <input type="hidden" name="cuwp_security" value="cuwp" />
             <tr class="form-field form-required">
-                <th scope="row"><label for="pass1"><?php _e('Password'); ?> <span class="description"><?php /* translators: password input field */_e('(required)'); ?></span></label></th>
+                <th scope="row"><label for="pass1"><?php _e('Password'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
                 <td><input name="pass1" type="password" id="pass1" autocomplete="off" /><input class="hidden" value=" " /></td>
             </tr>
 
             <tr class="form-field form-required">
-                <th scope="row"><label for="pass2"><?php _e('Repeat Password'); ?> <span class="description"><?php /* translators: password input field */_e('(required)'); ?></span></label></th>
+                <th scope="row"><label for="pass2"><?php _e('Repeat Password'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
                 <td><input name="pass2" type="password" id="pass2" autocomplete="off" /></td>
             </tr>
 
@@ -61,15 +61,6 @@ class Create_User_With_Password {
             </tr>
         </tbody>
         </table>
-        <style>
-            #createuser .pass-error{
-                color:red;
-                display:none;
-            }
-            #adduser .hook-pass{
-                display:none;
-            }
-        </style>
         <?php
     }
 
@@ -129,24 +120,27 @@ class Create_User_With_Password {
 
                     if (isset($_POST['noconfirmation']) && is_super_admin()) {
                         // send email with login details
-                        $email = 'Dear User,
+                        $email = __('Dear User,
                                 Your new account is set up.
 
                                 You can log in with the following information:
-                                Username: ' . $_REQUEST['user_login'] . '
-                                Password: ' . $_REQUEST['pass1'] . '
+                                Username: %user_login%
+                                Password: %pass1%
 
-                                Thanks!';
+                                Thanks!');
 
-                        $headers = 'From: noreply@noreply.com' . "\r\n" .
+                        $replaced_login = str_replace('%user_login%', $_REQUEST['user_login'], $email);
+                        $replaced_all = str_replace('%pass1%', $_REQUEST['pass1'], $replaced_login);
+                        
+                        $headers = 'From: ' . get_option('admin_email') . "\r\n" .
                                 'Reply-To: noreply@noreply.com' . "\r\n" .
                                 'X-Mailer: PHP/' . phpversion();
 
-                        $mail = mail($_REQUEST['email'], 'Login details', $email, $headers);
+                        $mail = mail($_REQUEST['email'], 'Login details', $replaced_all, $headers);
                         if ($mail == true) {
                             wp_redirect($redirect);
                         } else {
-                            wp_die(__('Something went wrong during sending email with the login details. Please deactivate Create user with password Multisite plugin and contact us on plugins@mooveagency.com to resolve this problem.'));
+                            wp_die(__('Something went wrong during sending email with the login details. Please deactivate Create User With Password Multisite plugin and contact us on plugins@mooveagency.com to resolve this issue.'));
                         }
 
                         die();

@@ -4,7 +4,7 @@ Contributors: mooveagency, jakubmoove
 Stable tag: trunk
 Plugin URI: 
 Description: Adds functionality to register user with password on WP multisite installation.
-Version: 1.0.0.
+Version: 1.0.1.
 Tags: multisite, user registration, password
 Tested up to: 4.1.0
 Requires at least: 3.0.1
@@ -33,6 +33,9 @@ Installation is quite simple.
 1. Preview of the password in WP multisite.
 
 == Changelog ==
+
+= 1.0.1. =
+* Couple bugs fixed.
 
 = 1.0.0. =
 * Initial release of the plugin.
