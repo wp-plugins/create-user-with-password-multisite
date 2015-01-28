@@ -55,7 +55,7 @@ class Create_User_With_Password {
             <tr>
                 <td>
                     <div class="pass-error">
-                        Passwords are not the same.
+                        Passwords do not match.
                     </div>
                 </td>
             </tr>
@@ -121,13 +121,13 @@ class Create_User_With_Password {
                     if (isset($_POST['noconfirmation']) && is_super_admin()) {
                         // send email with login details
                         $email = __('Dear User,
-                                Your new account is set up.
+Your new account has been set up.
 
-                                You can log in with the following information:
-                                Username: %user_login%
-                                Password: %pass1%
+You can log in with the following information:
+Username: %user_login%
+Password: %pass1%
 
-                                Thanks!');
+Thanks!');
 
                         $replaced_login = str_replace('%user_login%', $_REQUEST['user_login'], $email);
                         $replaced_all = str_replace('%pass1%', $_REQUEST['pass1'], $replaced_login);
@@ -140,7 +140,7 @@ class Create_User_With_Password {
                         if ($mail == true) {
                             wp_redirect($redirect);
                         } else {
-                            wp_die(__('Something went wrong during sending email with the login details. Please deactivate Create User With Password Multisite plugin and contact us on plugins@mooveagency.com to resolve this issue.'));
+                            wp_die(__('We are sorry but an error has occurred whilst sending the email with the login details. Please deactivate the "Create User with Password Multisite" plugin and contact us via email to resolve this issue: plugins@mooveagency.com'));
                         }
 
                         die();
