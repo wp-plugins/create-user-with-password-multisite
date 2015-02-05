@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Create User With Password Multisite ===
 Plugin Name: Create User With Password Multisite
 Contributors: mooveagency, jakubmoove
 Stable tag: trunk
@@ -13,18 +13,27 @@ Author URI:
 License: GPLv2
 Text Domain: create-user-with-password-multisite
 
-With this plugin you will be able to register users in WP Multisite installation with password.
+Allow site admins to allocate passwords to users as they register them in a WordPress Multisite.  
 
 == Description ==
 
-With this plugin you will be able to register users in WP Multisite installation with password.
+Allows a Site Admin to set the password during new user registration for the site they are responsible for within a WordPress Multisite network.  
+
+Features
+•	Simple to use, no setup required.
+•	Site Admins can allocate user passwords
+•	Visit:  Users->Add New  
+
+Help develop this plugin
+The CUWPM plugin is hosted on GitHub if you want to help out with the development or testing then head over to https://github.com/MooveAgency/create-user-with-password-multisite 
+
 
 == Installation ==
 
 Installation is quite simple.
 
-1) Download and install plugin.
-2) You are ready to go!
+1) Upload the entire create-user-with-password-multisite folder to the /wp-content/plugins/ directory.
+2) Activate the plugin through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 
