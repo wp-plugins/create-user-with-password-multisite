@@ -21,7 +21,7 @@ Allows a Site Admin to set the password during new user registration for the sit
 
 * Simple to use, no setup required
 * Site Admins can allocate user passwords
-* Visit: Users -> Add New  
+* Visit: <code>Users -> Add New  </code>
 
 **Help develop this plugin**
 
@@ -31,7 +31,7 @@ The CUWPM plugin is hosted on GitHub if you want to help out with the developmen
 
 Installation is quite simple.
 
-1) Upload the entire create-user-with-password-multisite folder to the /wp-content/plugins/ directory.
+1) Upload the entire create-user-with-password-multisite folder to the <code>/wp-content/plugins/ </code>directory.
 
 2) Activate the plugin through the 'Plugins' menu in WordPress.
 
