@@ -18,11 +18,15 @@ Allow site admins to allocate passwords to users as they register them in a Word
 Allows a Site Admin to set the password during new user registration for the site they are responsible for within a WordPress Multisite network.  
 
 Features
-- Simple to use, no setup required.
+
+- Simple to use, no setup required
+
 - Site Admins can allocate user passwords
+
 - Visit: Users->Add New  
 
-Help develop this plugin<br/>
+Help develop this plugin
+
 The CUWPM plugin is hosted on GitHub if you want to help out with the development or testing then head over to https://github.com/MooveAgency/create-user-with-password-multisite 
 
 == Installation ==
