@@ -17,14 +17,13 @@ class Create_User_With_Password {
 
         // add css
         wp_enqueue_style('cuwp-style', plugins_url('create-user-with-password-multisite/css/style.css'));
-        
+
         // listen for REQUEST
         add_action('init', array($this, 'cuwp_listen'), 3);
 
-   
+
         // remove filter that updates welcome email
         remove_filter('site_option_welcome_user_email', 'welcome_user_msg_filter');
-
     }
 
     /**
@@ -43,19 +42,20 @@ class Create_User_With_Password {
             <tbody>
             <input type="hidden" name="cuwp_security" value="cuwp" />
             <tr class="form-field form-required">
-                <th scope="row"><label for="pass1"><?php _e('Password'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
-                <td><input name="pass1" type="password" id="pass1" autocomplete="off" /><input class="hidden" value=" " /></td>
+                <th scope="row"><label for="cuwp_pass1"><?php _e('Password', 'create-user-with-password-multisite'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
+                <td><input name="cuwp_pass1" type="password" id="pass1" autocomplete="off" /><input class="hidden" value=" " /></td>
             </tr>
 
             <tr class="form-field form-required">
-                <th scope="row"><label for="pass2"><?php _e('Repeat Password'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
-                <td><input name="pass2" type="password" id="pass2" autocomplete="off" /></td>
+                <th scope="row"><label for="cuwp_pass2"><?php _e('Repeat Password', 'create-user-with-password-multisite'); ?> <span class="description"><?php _e('(required)'); ?></span></label></th>
+                <td><input name="cuwp_pass2" type="password" id="pass2" autocomplete="off" /></td>
             </tr>
 
             <tr>
                 <td>
                     <div class="pass-error">
-                        Passwords do not match.
+
+                        <?php _e("Passwords do not match.", 'create-user-with-password-multisite'); ?>
                     </div>
                 </td>
             </tr>
@@ -115,8 +115,8 @@ class Create_User_With_Password {
                     }
 
                     // set password for user
-                    $user = get_user_by('email', $_REQUEST['email']);
-                    wp_set_password($_REQUEST['pass1'], $user->ID);
+                    $user = get_user_by('email', sanitize_email($_REQUEST['email']));
+                    wp_set_password(sanitize_text_field($_REQUEST['cuwp_pass1']), $user->ID);
 
                     if (isset($_POST['noconfirmation']) && is_super_admin()) {
                         // send email with login details
@@ -124,28 +124,29 @@ class Create_User_With_Password {
 Your new account has been set up.
 
 You can log in with the following information:
-Username: %user_login%
-Password: %pass1%
+Username: %1$s
+Password: %2$s
 
-Thanks!');
+%3$s
 
-                        $replaced_login = str_replace('%user_login%', $_REQUEST['user_login'], $email);
-                        $replaced_all = str_replace('%pass1%', $_REQUEST['pass1'], $replaced_login);
-                        
+Thanks!', 'create-user-with-password-multisite');
+
+                        $replaced_all = sprintf(__($email, 'create-user-with-password-multisite'), sanitize_user(wp_unslash($_REQUEST['user_login']), true), sanitize_text_field($_REQUEST['cuwp_pass1']), get_admin_url() );
+
                         $headers = 'From: ' . get_option('admin_email') . "\r\n" .
                                 'Reply-To: noreply@noreply.com' . "\r\n" .
                                 'X-Mailer: PHP/' . phpversion();
 
-                        $mail = mail($_REQUEST['email'], 'Login details', $replaced_all, $headers);
+                        $mail = mail(sanitize_text_field($_REQUEST['email']), __('Login details', 'create-user-with-password-multisite'), $replaced_all, $headers);
                         if ($mail == true) {
                             wp_redirect($redirect);
                         } else {
-                            wp_die(__('We are sorry but an error has occurred whilst sending the email with the login details. Please deactivate the "Create User with Password Multisite" plugin and contact us via email to resolve this issue: plugins@mooveagency.com'));
+                            wp_die(__('We are sorry but an error has occurred whilst sending the email with the login details. Please deactivate the "Create User with Password Multisite" plugin and contact us via email to resolve this issue: plugins@mooveagency.com', 'create-user-with-password-multisite'));
                         }
 
                         die();
                     } else {
-                        
+
                         wp_redirect($redirect);
                         die();
                     }

@@ -4,7 +4,7 @@
   Plugin Name: Create User With Password Multisite
   Plugin URI: http://www.mooveagency.com
   Description: Add ability to register user with password on WP multisite installation.
-  Version: 1.0.2.
+  Version: 1.0.4.
   Author: Jakub Glos
   Author URI: http://www.mooveagency.com
   License:
@@ -36,7 +36,7 @@ function cuwp_activate() {
     $text = __('Dear User,
 Thank you for the registration.  Please check the email address provided for login details. 
 
---The Team @ SITE_NAME');
+--The Team @ SITE_NAME', 'create-user-with-password-multisite');
     
     update_site_option('welcome_user_email', $text);
 }
